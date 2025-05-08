@@ -3,6 +3,8 @@ package com.apirest.mimm.apirest.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 import com.apirest.mimm.apirest.Entities.Producto;
 
@@ -36,7 +38,7 @@ public class ProductoController {
     @GetMapping("/{id}")
     public Producto getProductoById(@PathVariable Long id) {
         return productoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No se encontro el producto con el id: " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontro el producto con el id: " + id ));
     }
 
     @PutMapping("/{id}")
